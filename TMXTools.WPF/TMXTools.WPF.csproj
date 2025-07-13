@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+
+    <!--Assembly Info-->
+    <Title>$(AssemblyName)</Title>
+    <Authors>TheMasonX</Authors>
+    <Company>TheMasonX</Company>
+    <Description>A set of common WPF utilities I use amongst my various projects.</Description>
+    <Copyright>©2025 Lucas Norr</Copyright>
+
+    <!--Package Info-->
+    <PackageProjectUrl>https://github.com/TheMasonX/TMXTools</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TheMasonX/TMXTools</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>tools; extensions; utilities; helpers; WPF; XAML; desktop; Windows</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <!--Version Info-->
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
+  </PropertyGroup>
+
+  <!--Nuget Packages-->
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TMXTools\TMXTools.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!--Assembly Info-->
+    <Title>$(AssemblyName)</Title>
+    <Authors>TheMasonX</Authors>
+    <Company>TheMasonX</Company>
+    <Description>A set of common utilities I use amongst my various projects.</Description>
+    <Copyright>©2025 Lucas Norr</Copyright>
+
+    <!--Package Info-->
+    <PackageProjectUrl>https://github.com/TheMasonX/TMXTools</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/TheMasonX/TMXTools</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>tools; extensions; utilities; helpers</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <!--Version Info-->
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+    <Version>$(AssemblyVersion)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
