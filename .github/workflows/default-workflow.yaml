@@ -1,0 +1,85 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+############## Testing ##############
+
+    - name: Run Tests with Code Coverage
+      run: |
+        foreach ($project in Get-ChildItem -Recurse -Filter *.csproj | Where-Object { $_.FullName -match 'Tests' }) {
+          dotnet test "$($project.FullName)" --no-build --configuration Release `
+          --collect:"XPlat Code Coverage" `
+          --logger "trx;LogFileName=TestResults/test-results.trx"
+        }
+      shell: pwsh
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: TestResults
+        path: |
+          **/TestResults/test-results.trx
+          **/TestResults/**/coverage.cobertura.xml
+        if-no-files-found: error
+
+    - name: Generate Coverage Report
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.2.4
+      with:
+        reports: '**/TestResults/**/coverage.cobertura.xml'
+        targetdir: 'coveragereport'
+        reporttypes: 'HtmlInline;Cobertura'
+    
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: CoverageReport
+        path: coveragereport
+        if-no-files-found: error
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        files: '**/coverage.xml'
+        flags: unittests
+        name: codecov-coverage
+
+############## Build Artefacts ##############
+
+    - name: Upload TMXTools build artefact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: TMXTools
+        path: "**TMXTools/bin/Release/net8.0/**"
+        if-no-files-found: error
+
+    - name: Upload TMXTools.WPF build artefact
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: TMXTools.WPF
+        path: "**TMXTools.WPF/bin/Release/net8.0-windows/**"
+        if-no-files-found: error
