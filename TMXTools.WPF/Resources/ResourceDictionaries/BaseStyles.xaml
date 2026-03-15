@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/TMXTools.WPF;component/Resources/ResourceDictionaries/BaseConverters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <!--#region Menu Items-->
+    <Style x:Key="TextIcon" TargetType="TextBox">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="GestureMenuItem" TargetType="MenuItem">
+        <Setter Property="InputGestureText" Value="{Binding Gesture, Converter={StaticResource GestureConverter}}"/>
+    </Style>
+    <Style x:Key="OpenMenuItem" TargetType="MenuItem" BasedOn="{StaticResource GestureMenuItem}">
+        <Setter Property="Icon">
+            <Setter.Value>
+                <TextBlock Text="📂" Style="{StaticResource TextIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SaveMenuItem" TargetType="MenuItem" BasedOn="{StaticResource GestureMenuItem}">
+        <Setter Property="Icon">
+            <Setter.Value>
+                <TextBlock Text="💾" Style="{StaticResource TextIcon}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--#endregion Menu Items-->
+</ResourceDictionary>
