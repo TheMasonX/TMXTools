@@ -1,0 +1,42 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 2 * * *'  # Daily at 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+        cache: true
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build with analysis
+      run: dotnet build --configuration Release /p:TreatWarningsAsErrors=false /p:EnforceCodeStyleInBuild=true
+    
+    - name: Create analysis report
+      if: always()
+      run: echo "Code analysis complete"
+    
+    - name: Upload analysis results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: analysis-results
+        path: |
+          **/bin/Release/**/
+        retention-days: 7

@@ -13,13 +13,16 @@ These are two separate nuget packages for the purposes of minimizing dependencie
 
 ## Tasks
 ### CI/CD Pipeline
-- [ ] Unit tests for TMXTools
+- [ ] Unit tests project for TMXTools
     - Move any applicable from the TMXTools.WPF.Tests
-- [ ] More tests for TMXTools.WPF
 - [ ] Github actions to build
     - [ ] Run library tests and export code coverage results
     - [ ] Artifact handling
     - [ ] Releases
+    - [ ] Run benchmarks and export results
+        - [ ] If possible, track regressions
+- [ ] More tests for TMXTools.WPF
+- [ ] More benchmarks
 
 ### Refactoring
 - [ ] .NET 11 updates and modernization
